@@ -7,33 +7,12 @@ class Solution:
                 nums2: List[int],  # Second sorted array
                 n: int):           # Number of elements in nums2
         
-        # Create a temporary array to hold the merged elements
-        temp_Array = [0] * (m + n)        
-        ptr1 = ptr2 = index = 0  # Initialize pointers for both arrays and the index for temp_Array
-
-        # Merge the two arrays until one is exhausted
-        while ptr1 < m and ptr2 < n:
-            # Compare elements from both arrays and add the smaller one to temp_Array
-            if nums1[ptr1] <= nums2[ptr2]:
-                temp_Array[index] = nums1[ptr1]  # Add from nums1
-                ptr1 += 1  # Move the pointer in nums1
-            else:
-                temp_Array[index] = nums2[ptr2]  # Add from nums2
-                ptr2 += 1  # Move the pointer in nums2
-            index += 1  # Move the index in temp_Array
+        # Append elements from nums2 to the end of nums1
+        for index in range(n): 
+            nums1[m + index] = nums2[index]  # Fill nums1 with elements from nums2
         
-        # If there are remaining elements in nums1, add them to temp_Array
-        while ptr1 < m:
-            temp_Array[index] = nums1[ptr1]  # Add remaining elements from nums1
-            ptr1 += 1  # Move the pointer in nums1
-            index += 1  # Move the index in temp_Array
+        # Sort the merged array
+        nums1.sort()  # Sort the combined elements to ensure they are in non-decreasing order
 
-        # If there are remaining elements in nums2, add them to temp_Array
-        while ptr2 < n:
-            temp_Array[index] = nums2[ptr2]  # Add remaining elements from nums2
-            ptr2 += 1  # Move the pointer in nums2
-            index += 1  # Move the index in temp_Array
-
-        # Copy the sorted elements back into nums1
-        for index in range(m + n):
-            nums1[index] = temp_Array[index]  # Update nums1 with merged results
+# Time Complexity: O((m + n) log(m + n)), where m is the number of elements in nums1 and n is the number of elements in nums2.
+# Space Complexity: O(n), due to the space used by the sort function for temporary storage.
